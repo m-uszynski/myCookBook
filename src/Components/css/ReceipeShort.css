@@ -1,0 +1,32 @@
+.receipe{
+    text-align: center;
+    background-color: burlywood;
+    margin: 10px;
+    border-radius: 20px;
+}
+
+.title{
+    font-size: 23px;
+    font-weight: 700;
+    padding: 10px;
+}
+
+.image{
+    width: 100%;
+}
+
+.image img{
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.shortDesc{
+    padding: 10px 5px 15px;
+    margin: 0 5%;
+    text-align: justify;
+}
+
+.btn{
+    margin: 0 0 20px 0;
+}

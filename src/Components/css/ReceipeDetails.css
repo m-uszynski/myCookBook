@@ -1,0 +1,15 @@
+.imageDetails{
+    height: 300px;
+    margin: 0 auto;
+}
+
+.imageDetails img{
+    height: 100%;
+    max-width: 100%;
+    border-radius: 20px;
+}
+
+.description{
+    margin: 20px 10%;
+    text-align: justify;
+}
