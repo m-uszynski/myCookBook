@@ -8,7 +8,7 @@ import {
 class ReceipeShort extends Component {
     // state = {  }
     render() {
-        if (this.props.receipes.length > 0) {
+        if (this.props.receipes !== null) {
             return (
                 this.props.receipes.map(receipe => {
                     return (
@@ -17,10 +17,10 @@ class ReceipeShort extends Component {
                                 {receipe.title}
                             </div>
                             <div className="image">
-                                <img src={receipe.url} alt={receipe.title} />
+                                <img src={receipe.url} alt='photo' />
                             </div>
                             <div className="shortDesc">
-                                {receipe.description.substring(0, 100)}...
+                                {receipe.description.slice(0, 100)}...
                             </div>
                             <Link to="/details"><button className="btn btn-success" onClick={() => this.props.clickReceipe(receipe.id)}>Zobacz</button></Link>
                         </div>

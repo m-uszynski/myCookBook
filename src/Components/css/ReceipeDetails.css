@@ -13,3 +13,10 @@
     margin: 20px 10%;
     text-align: justify;
 }
+
+.btnAdd{
+    margin: 0 10px;
+    width: 10%;
+    min-width: 100px;
+    height: 50px;
+}

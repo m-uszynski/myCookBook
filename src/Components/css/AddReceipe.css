@@ -1,0 +1,49 @@
+input[type=text] {
+    width: 80%;
+    padding: 12px 20px;
+    margin: 0px 0;
+    box-sizing: border-box;
+    border: 3px solid #ce954b;
+    border-radius: 20px;
+    background-color: #fff;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    outline: none;
+  }
+  
+  input[type=text]:focus {
+    border: 3px solid #8d87de;
+  }
+
+  .addForm{
+      margin: 30px 0;
+  }
+
+  .addTitle{
+      margin: 25px 0;
+  }
+
+  textarea {
+    width: 80%;
+    height: 250px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 3px solid #ce954b;
+    border-radius: 20px;
+    background-color: #fff;
+    resize: none;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    outline: none;
+  }
+
+  textarea:focus{
+    border: 3px solid #8d87de;
+  }
+
+  .btnAdd{
+      margin: 0 10px;
+      width: 10%;
+      min-width: 100px;
+      height: 50px;
+  }

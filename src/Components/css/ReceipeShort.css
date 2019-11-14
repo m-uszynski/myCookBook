@@ -9,6 +9,7 @@
     font-size: 23px;
     font-weight: 700;
     padding: 10px;
+    word-break: break-all
 }
 
 .image{
@@ -25,6 +26,7 @@
     padding: 10px 5px 15px;
     margin: 0 5%;
     text-align: justify;
+    word-break: break-all
 }
 
 .btn{

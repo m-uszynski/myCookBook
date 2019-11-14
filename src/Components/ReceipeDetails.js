@@ -24,7 +24,10 @@ class ReceipeDetails extends Component {
                                 <div className="description">
                                     {receipe.description}
                                 </div>
-                                <Link to="/"><button className="btn btn-success" onClick={this.props.endClickReceipe}>Powrót</button></Link>
+                                <p>
+                                    <Link to="/"><button className="btnAdd btn btn-primary" onClick={this.props.endClickReceipe}>Powrót</button></Link>
+                                    <Link to="/"><button className="btnAdd btn btn-danger" onClick={() => this.props.deleteReceipe(this.props.selectedId)}>Usuń</button></Link>
+                                </p>
                             </div>
                         );
                     }
@@ -36,7 +39,7 @@ class ReceipeDetails extends Component {
         return (
             <div className="col-sm-12 receipe">
                 <p>Nie znaleziono takiego przepisu!</p>
-                <Link to="/"><button onClick={this.props.endClickReceipe}>Powrót</button></Link>
+                <Link to="/"><button className="btn btn-primary" onClick={this.props.endClickReceipe}>Powrót</button></Link>
             </div>
         )
     }
