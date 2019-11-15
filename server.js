@@ -60,6 +60,21 @@ app.post('/receipes', (req, res) => {
     }
 })
 
+app.put('/receipes', (req, res) => {
+    const receipe = req.body;
+    let present = false;
+    receipes.map((el, index, tab) => {
+        if (el.id === receipe.id) {
+            tab[index].title = receipe.title;
+            tab[index].url = receipe.url;
+            tab[index].description = receipe.description;
+            res.send(tab[index]);
+            present = true;
+        }
+    });
+    if (!present) res.sendStatus(304);
+});
+
 app.delete('/receipes/:id', (req, res) => {
     const id = parseInt(req.params.id);
     let idx;

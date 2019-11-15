@@ -12,6 +12,7 @@ import {
 } from 'react-router-dom';
 
 import axios from 'axios';
+import EditReceipe from './EditReceipe';
 
 class App extends Component {
 
@@ -104,6 +105,33 @@ class App extends Component {
     }).catch(error => console.error('Error', error));
   }
 
+  onReceipeUpdate = (receipeData) => {
+
+    axios({
+      url: "http://localhost:8080/receipes",
+      method: "PUT",
+      headers: {
+        Accept: 'application/json', 'Content-Type': 'application/json'
+      },
+      data: JSON.stringify(receipeData)
+    }).then(res => {
+      if (res.status !== 304) {
+        this.setState((prevState) => {
+          let idx;
+          let receipes = prevState.receipes;
+          let id = prevState.selectedReceipe;
+          receipes.forEach(el => {
+            if (el.id === id) idx = receipes.indexOf(el);
+          })
+          receipes[idx] = receipeData;
+          return {
+            receipes: receipes,
+          }
+        })
+      } else throw new Error('Duplicate receipe!');
+    }).catch(error => console.error('Error', error));
+  }
+
   render() {
     return (
       <Router>
@@ -115,6 +143,7 @@ class App extends Component {
             <Route exact path="/" render={() => <ReceipeShort receipes={this.state.receipes} clickReceipe={this.onClickReceipe} />} />
             <Route path="/details" render={() => <ReceipeDetails receipes={this.state.receipes} selectedId={this.state.selectedReceipe} endClickReceipe={this.onEndClickReceipe} deleteReceipe={this.remove} />} />
             <Route path="/add" render={() => <AddReceipe addReceipe={this.add.bind(this)} />} />
+            <Route path="/edit" render={() => <EditReceipe receipes={this.state.receipes} receipeUpdate={this.onReceipeUpdate} selectedId={this.state.selectedReceipe} endClickReceipe={this.onEndClickReceipe} />} />
           </div>
         </div>
       </Router>

@@ -17,7 +17,7 @@ class ReceipeShort extends Component {
                                 {receipe.title}
                             </div>
                             <div className="image">
-                                <img src={receipe.url} alt='photo' />
+                                <img src={receipe.url} alt={receipe.title.slice(0, 10)} />
                             </div>
                             <div className="shortDesc">
                                 {receipe.description.slice(0, 100)}...

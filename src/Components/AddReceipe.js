@@ -39,7 +39,7 @@ class AddReceipe extends Component {
                     <p><textarea name="description" placeholder="Dodaj opis przepisu" onChange={this.changeVal.bind(this, 'description')} /></p>
                     <p>
                         <Link to="/"><button className="btnAdd btn btn-primary" onClick={this.props.endClickReceipe}>Powrót</button></Link>
-                        <button className="btnAdd btn btn-success" onClick={this.addStudent.bind(this)}>Dodaj</button>
+                        <Link to="/"><button className="btnAdd btn btn-success" onClick={this.addStudent.bind(this)}>Dodaj</button></Link>
                     </p>
                 </form>
             </div>

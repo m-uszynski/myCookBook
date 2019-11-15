@@ -26,6 +26,7 @@ class ReceipeDetails extends Component {
                                 </div>
                                 <p>
                                     <Link to="/"><button className="btnAdd btn btn-primary" onClick={this.props.endClickReceipe}>Powrót</button></Link>
+                                    <Link to="/edit"><button className="btnAdd btn btn-primary">Edytuj</button></Link>
                                     <Link to="/"><button className="btnAdd btn btn-danger" onClick={() => this.props.deleteReceipe(this.props.selectedId)}>Usuń</button></Link>
                                 </p>
                             </div>
