@@ -1,0 +1,19 @@
+input[type=text].searchbox {
+    width: 80%;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    margin: 10px 0 !important;
+  }
+  
+  /* When the input field gets focus, change its width to 100% */
+  input[type=text]:focus.searchbox {
+    width: 100%;
+  }
+
+.search{
+    width: 80%;
+}
+
+.currBtn{
+    margin: 20px 10px 20px !important;
+  }

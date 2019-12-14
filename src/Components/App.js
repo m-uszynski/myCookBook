@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import './css/App.css';
 import Header from './Header'
-import ReceipeShort from './ReceipeShort'
-import ReceipeDetails from './ReceipeDetails'
-import AddReceipe from './AddReceipe'
+import RecipeShort from './RecipeShort'
+import RecipeDetails from './RecipeDetails'
+// import AddRecipe from './AddRecipe'
+import SearchRecipe from './SearchRecipe';
+
+import RecipeForm from './RecipeForm';
 
 import {
   BrowserRouter as Router,
@@ -12,7 +15,8 @@ import {
 } from 'react-router-dom';
 
 import axios from 'axios';
-import EditReceipe from './EditReceipe';
+// import EditRecipe from './EditRecipe';
+
 
 class App extends Component {
 
@@ -21,18 +25,18 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedReceipe: -1,
-      receipes: null,
+      selectedRecipe: -1,
+      Recipes: null,
     }
   }
 
   componentDidMount() {
     this._isMounted = true;
 
-    axios("http://localhost:8080/receipes").then(res => {
+    axios("http://localhost:8080/Recipes").then(res => {
       if (this._isMounted) {
         this.setState({
-          receipes: res.data
+          Recipes: res.data
         });
       }
     }).catch(error => console.error('Error', error));
@@ -42,55 +46,56 @@ class App extends Component {
     this._isMounted = false;
   }
 
-  onClickReceipe = (id) => {
+  onClickRecipe = (id) => {
     this.setState({
-      selectedReceipe: id
+      selectedRecipe: id
     })
   }
 
-  onEndClickReceipe = () => {
+  onEndClickRecipe = () => {
     this.setState({
-      selectedReceipe: -1
+      selectedRecipe: -1
     })
   }
 
-  add(newReceipe) {
-    let id = this.state.receipes[this.state.receipes.length - 1].id + 1;
+  add(newRecipe) {
+    let id = this.state.Recipes[this.state.Recipes.length - 1].id + 1;
 
-    let receipe2add = {
+    let Recipe2add = {
       id: id,
-      title: newReceipe.title,
-      url: newReceipe.url,
-      description: newReceipe.description
+      title: newRecipe.title,
+      url: newRecipe.url,
+      description: newRecipe.description,
+      ingredients: []
     };
 
     axios({
-      url: "http://localhost:8080/receipes",
+      url: "http://localhost:8080/Recipes",
       method: "POST",
       headers: {
         Accept: 'application/json', 'Content-Type': 'application/json'
       },
-      data: JSON.stringify(receipe2add)
+      data: JSON.stringify(Recipe2add)
     }).then(res => {
       if (res.status !== 304) {
-        let list = this.state.receipes;
-        list.push(receipe2add);
+        let list = this.state.Recipes;
+        list.push(Recipe2add);
         this.setState({
-          receipes: list
+          Recipes: list
         });
-      } else throw new Error("Duplicate receipe!");
+      } else throw new Error("Duplicate Recipe!");
     }).catch(error => console.error('Error', error));
 
   }
 
   remove = (index) => {
     axios({
-      url: "http://localhost:8080/receipes/" + index,
+      url: "http://localhost:8080/Recipes/" + index,
       method: "DELETE",
       headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
     }).then(res => {
       if (res.status !== 304) {
-        let list = this.state.receipes;
+        let list = this.state.Recipes;
         let idx;
         list.forEach(el => {
           if (el.id === index) {
@@ -99,36 +104,36 @@ class App extends Component {
           }
         });
         this.setState({
-          receipes: list
+          Recipes: list
         })
-      } else throw new Error("Receipe does not exist!");
+      } else throw new Error("Recipe does not exist!");
     }).catch(error => console.error('Error', error));
   }
 
-  onReceipeUpdate = (receipeData) => {
+  onRecipeUpdate = (RecipeData) => {
 
     axios({
-      url: "http://localhost:8080/receipes",
+      url: "http://localhost:8080/Recipes",
       method: "PUT",
       headers: {
         Accept: 'application/json', 'Content-Type': 'application/json'
       },
-      data: JSON.stringify(receipeData)
+      data: JSON.stringify(RecipeData)
     }).then(res => {
       if (res.status !== 304) {
         this.setState((prevState) => {
           let idx;
-          let receipes = prevState.receipes;
-          let id = prevState.selectedReceipe;
-          receipes.forEach(el => {
-            if (el.id === id) idx = receipes.indexOf(el);
+          let Recipes = prevState.Recipes;
+          let id = prevState.selectedRecipe;
+          Recipes.forEach(el => {
+            if (el.id === id) idx = Recipes.indexOf(el);
           })
-          receipes[idx] = receipeData;
+          Recipes[idx] = RecipeData;
           return {
-            receipes: receipes,
+            Recipes: Recipes,
           }
         })
-      } else throw new Error('Duplicate receipe!');
+      } else throw new Error('Duplicate Recipe!');
     }).catch(error => console.error('Error', error));
   }
 
@@ -138,12 +143,16 @@ class App extends Component {
         <div className="App">
           <Header />
           <hr />
-          <Link to="/add"><button className="btn btn-primary btn-lg">Dodaj przepis</button></Link>
+          <Link to="/add"><button className="btn btn-primary btn-lg currBtnApp">Dodaj przepis</button></Link>
+          <Link to="/search"><button className="btn btn-primary btn-lg currBtnApp">Wyszukaj przepis</button></Link>
+          <hr />
           <div className="row justify-content-around">
-            <Route exact path="/" render={() => <ReceipeShort receipes={this.state.receipes} clickReceipe={this.onClickReceipe} />} />
-            <Route path="/details" render={() => <ReceipeDetails receipes={this.state.receipes} selectedId={this.state.selectedReceipe} endClickReceipe={this.onEndClickReceipe} deleteReceipe={this.remove} />} />
-            <Route path="/add" render={() => <AddReceipe addReceipe={this.add.bind(this)} />} />
-            <Route path="/edit" render={() => <EditReceipe receipes={this.state.receipes} receipeUpdate={this.onReceipeUpdate} selectedId={this.state.selectedReceipe} endClickReceipe={this.onEndClickReceipe} />} />
+            <Route exact path="/" render={() => <RecipeShort Recipes={this.state.Recipes} clickRecipe={this.onClickRecipe} />} />
+            <Route path="/details" render={() => <RecipeDetails Recipes={this.state.Recipes} selectedId={this.state.selectedRecipe} endClickRecipe={this.onEndClickRecipe} deleteRecipe={this.remove} />} />
+            <Route path="/add" render={() => <RecipeForm type="add" fields={{ title: ["text", "Nazwa przepisu"], url: ["text", "Adres url do zdjęcia"], description: ["text", "Dodaj opis przepisu"] }} addRecipe={this.add.bind(this)} />} />
+            <Route path="/edit" render={() => <RecipeForm type="edit" fields={{ title: ["text"], url: ["text"], description: ["text"] }} Recipes={this.state.Recipes} RecipeUpdate={this.onRecipeUpdate} selectedId={this.state.selectedRecipe} endClickRecipe={this.onEndClickRecipe} />} />
+            <Route path="/search" render={() => (<SearchRecipe fields={{ RecipeName: ["text"] }} clickRecipe={this.onClickRecipe} />
+            )} />
           </div>
         </div>
       </Router>

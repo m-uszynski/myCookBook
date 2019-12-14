@@ -20,3 +20,13 @@
 .App-link {
   color: #09d3ac;
 }
+
+.currBtnApp{
+  margin: 0px 10px !important;
+}
+
+.validateError{
+  display: block;
+  color: red;
+  font-size: 14px;
+}
