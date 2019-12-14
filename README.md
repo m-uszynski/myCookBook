@@ -16,6 +16,11 @@ This is a Cookbook - Single Page Application (SPA). The application allows recip
 * Detailed view of the recipe
 * RWD (Responsive web design)
 
+## Screenshots
+![Home](./screenshots/mainview.png)
+![Receipe details](./screenshots/detailsreceipeview.png)
+![Search receipe](./screenshots/searchreceipe.png)
+
 ## Setup
 * Clone this repo to your desktop
 ```
